@@ -1,27 +1,11 @@
 package main
 
-import (
-	"log"
-	"net/http"
-	"os"
-
-	"github.com/TikTokDownloader/src"
-	"github.com/gorilla/mux"
-)
+import "github.com/TikTokDownloader/src"
 
 func main() {
 
-	r := mux.NewRouter()
+	url := "https://www.daniweb.com/programming/computer-science/code/495192/get-the-content-of-a-web-page-golang"
 
-	fh := http.FileServer(http.Dir("./assets/"))
-	r.PathPrefix("/assets/").Handler(http.StripPrefix("/assets/", fh))
-
-	r.HandleFunc("/", src.DownloadPage)
-
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8000"
-	}
-	log.Println("PORT=> ", port)
-	http.ListenAndServe(":"+port, r)
+	src.SaveVideo(url)
+	//src.DownloadPage(url)
 }

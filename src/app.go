@@ -3,7 +3,9 @@ package src
 import (
 	"io/ioutil"
 	"log"
+	"fmt"
 	"net/http"
+	"regexp"
 )
 
 func DownloadPage(PageUrl string) {
@@ -22,12 +24,18 @@ func DownloadPage(PageUrl string) {
 		panic(err)
 	}
 
-	ExtractUrl(string(html[:]))
+	fmt.Println(string(html[:]))
+	//ExtractUrl(string(html[:]))
 }
 
 func ExtractUrl(html string) {
 
 	//get video url from html downloaded
+	re := regexp.MustCompile(`"contentUrl":"[^"]+`)
+	res := re.FindString(html)
+	 
+	 
+	 log.Println(res)
 
 }
 

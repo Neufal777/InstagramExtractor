@@ -4,8 +4,8 @@ import "github.com/TikTokDownloader/src"
 
 func main() {
 
-	url := "https://www.daniweb.com/programming/computer-science/code/495192/get-the-content-of-a-web-page-golang"
+	url := "https://www.tiktok.com/@milayyasta/video/6814475802655198469"
 
-	src.SaveVideo(url)
+	src.DownloadPage(url)
 	//src.DownloadPage(url)
 }

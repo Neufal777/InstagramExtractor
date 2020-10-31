@@ -15,10 +15,12 @@ type Profile struct {
 	ProfileImage string
 }
 
+/*
+	Given a profile, it downloads its HTML
+*/
 func DownloadPage(PageUrl string) {
 
-	fmt.Println("Downloading..")
-
+	fmt.Println("Downloading profile..")
 	resp, err := http.Get(PageUrl)
 
 	if err != nil {
@@ -35,6 +37,10 @@ func DownloadPage(PageUrl string) {
 
 	h := string(html[:])
 
+	/*
+		At this moment, the html is sent to be processed
+	*/
+
 	GetInstaData(h)
 
 }
@@ -42,9 +48,11 @@ func DownloadPage(PageUrl string) {
 func GetInstaData(content string) {
 
 	/*
-		We process the content (html of the website) to extract url of the video
+		We process the content (html of the website) to extract information
 	*/
 	var (
+
+		//regex for data extraction
 		getProfileImage = regexp.MustCompile("property=.og:image. content=.([^\"']*)")                                   //Gets the user profile image
 		getUsername     = regexp.MustCompile("<meta property=.al:ios:url. content=.instagram://user.username=([^\"']*)") //Gets the username
 		getId           = regexp.MustCompile("<meta property=.al:ios:app_store_id. content=.([^\"']*). />")              //Gets the username
@@ -65,6 +73,6 @@ func GetInstaData(content string) {
 		ProfileImage: getProfileImage.FindStringSubmatch(content)[1],
 	}
 
-	fmt.Println(user)
+	fmt.Printf("%+v\n", user)
 
 }

@@ -1,6 +1,6 @@
 package main
 
-import "github.com/TikTokDownloader/src"
+import "github.com/InstagramExtractor/src"
 
 func main() {
 

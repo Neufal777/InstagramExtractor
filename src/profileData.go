@@ -7,7 +7,7 @@ import (
 	"regexp"
 )
 
-type Profile struct {
+type User struct {
 	Id           string
 	Url          string
 	Username     string
@@ -37,10 +37,7 @@ func DownloadPage(PageUrl string) {
 
 	h := string(html[:])
 
-	/*
-		At this moment, the html is sent to be processed
-	*/
-
+	//sending the html to be processed
 	GetInstaData(h)
 
 }
@@ -53,19 +50,16 @@ func GetInstaData(content string) {
 	var (
 
 		//regex for data extraction
-		getProfileImage = regexp.MustCompile("property=.og:image. content=.([^\"']*)")                                   //Gets the user profile image
+		getProfileImage = regexp.MustCompile("property=.og:image. content=.([^\"']*)")                                   //Gets the profile image
 		getUsername     = regexp.MustCompile("<meta property=.al:ios:url. content=.instagram://user.username=([^\"']*)") //Gets the username
-		getId           = regexp.MustCompile("<meta property=.al:ios:app_store_id. content=.([^\"']*). />")              //Gets the username
-		getDescription  = regexp.MustCompile("{.user.:{.biography.:.([^\"']*)")                                          //Gets the username
-		getUrl          = regexp.MustCompile("<meta property=.og:url. content=.([^\"']*). />")                           //Gets the username
+		getId           = regexp.MustCompile("<meta property=.al:ios:app_store_id. content=.([^\"']*). />")              //Gets the Id of the user
+		getDescription  = regexp.MustCompile("{.user.:{.biography.:.([^\"']*)")                                          //Gets the description
+		getUrl          = regexp.MustCompile("<meta property=.og:url. content=.([^\"']*). />")                           //Gets the url of the profile
 
 	)
 
-	images := []string{}
-	result := getProfileImage.FindStringSubmatch(content)[1]
-	images = append(images, result)
-
-	user := Profile{
+	//filling the user struct with the data extracted
+	user := User{
 		Id:           getId.FindStringSubmatch(content)[1],
 		Url:          getUrl.FindStringSubmatch(content)[1],
 		Username:     getUsername.FindStringSubmatch(content)[1],

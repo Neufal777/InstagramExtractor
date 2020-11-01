@@ -1,10 +1,9 @@
 package src
 
 import (
-	"fmt"
-	"io/ioutil"
-	"net/http"
 	"regexp"
+
+	"github.com/InstagramExtractor/utils"
 )
 
 type User struct {
@@ -15,35 +14,9 @@ type User struct {
 	ProfileImage string
 }
 
-/*
-	Given a profile, it downloads its HTML
-*/
-func DownloadPage(PageUrl string) {
+func GetInstaData(url string) User {
 
-	fmt.Println("Downloading profile..")
-	resp, err := http.Get(PageUrl)
-
-	if err != nil {
-		panic(err)
-	}
-
-	defer resp.Body.Close()
-
-	html, err := ioutil.ReadAll(resp.Body)
-
-	if err != nil {
-		panic(err)
-	}
-
-	h := string(html[:])
-
-	//sending the html to be processed
-	GetInstaData(h)
-
-}
-
-func GetInstaData(content string) {
-
+	content := utils.DownloadHtml(url)
 	/*
 		We process the content (html of the website) to extract information
 	*/
@@ -67,6 +40,5 @@ func GetInstaData(content string) {
 		ProfileImage: getProfileImage.FindStringSubmatch(content)[1],
 	}
 
-	fmt.Printf("%+v\n", user)
-
+	return user
 }

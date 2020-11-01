@@ -23,12 +23,12 @@ Run the function(s) you need, in the readme you'll find all
 the available functions
 */
 
-  insta.DownloadPage("https://www.instagram.com/neufal79/") //takes profile url as a parameter
+  insta.GetInstaData("https://www.instagram.com/neufal79/") //takes profile url as a parameter
 }
 ```
 
 ## Output
-### _DownloadPage(ProfileUrl [string])_
+### _GetInstaData(ProfileUrl [string])_
 This function returns a struct called `User` with the data
 ```bash
 {
